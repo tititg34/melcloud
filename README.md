@@ -15,9 +15,7 @@ La cose php7.3 qui génére « Class ‘object’ not found »
 
 La modif dans le fichier /var/www/html/plugins/melcloud/desktop/php/melcloud.php
 
-
 la ligne 97, remplacer
-
 
 foreach (object::all() as $object)
 
