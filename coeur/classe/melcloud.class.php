@@ -505,6 +505,80 @@ public static function SetModif($option, $mylogical,$flag,$idflag){
                     $ventilation->setDisplay('forceReturnLineAfter','1');
                     $ventilation->save();
                 }
+		     
+		$vaneh = $this->getCmd(null, 'VaneHorizontal');
+                if (!is_object($vaneh)) {
+                    $vaneh = new melcloudCmd();
+                    $vaneh->setName('VaneH');
+                    $vaneh->setEqLogic_id($this->getId());
+                    $vaneh->setLogicalId('VaneHorizontal');
+                    $vaneh->setType('action');
+                    $vaneh->setSubType('slider');
+                    $vaneh->setIsHistorized(0);
+                    $vaneh->setDisplay('slider_placeholder', '0 = automatique, 1 a 7 manuel');
+                    $vaneh->setTemplate('dashboard', 'button');
+                    $vaneh->setIsVisible(1);
+                    $vaneh->setOrder(18);
+                    $vaneh->setConfiguration('maxValue', 7);
+                    $vaneh->setConfiguration('minValue', 1);
+                    $vaneh->setDisplay('forceReturnLineAfter','1');
+                    $vaneh->save();
+                }
+
+                $vanev = $this->getCmd(null, 'VaneVertical');
+                if (!is_object($vanev)) {
+                    $vanev = new melcloudCmd();
+                    $vanev->setName('VaneV');
+                    $vanev->setEqLogic_id($this->getId());
+                    $vanev->setLogicalId('VaneVertical');
+                    $vanev->setType('action');
+                    $vanev->setSubType('slider');
+                    $vanev->setIsHistorized(0);
+                    $vanev->setDisplay('slider_placeholder', '0 = automatique, 1 a 7 manuel');
+                    $vanev->setTemplate('dashboard', 'button');
+                    $vanev->setIsVisible(1);
+                    $vanev->setOrder(19);
+                    $vanev->setConfiguration('maxValue', 7);
+                    $vanev->setConfiguration('minValue', 1);
+                    $vanev->setDisplay('forceReturnLineAfter','1');
+                    $vanev->save();
+                }
+
+
+                $Actualvaneh = $this->getCmd(null, 'ActualVaneH');
+                if (!is_object($Actualvaneh)) {
+                    $Actualvaneh = new melcloudCmd();
+                    $Actualvaneh->setName('Actuel Vane Horizontal');
+                    $Actualvaneh->setEqLogic_id($this->getId());
+                    $Actualvaneh->setLogicalId('VaneHorizontalDirection');
+                    $Actualvaneh->setType('info');
+                    $Actualvaneh->setSubType('numeric');
+                    $Actualvaneh->setIsHistorized(0);
+                    $Actualvaneh->setTemplate('dashboard', 'tile');
+                    $Actualvaneh->setIsVisible(0);
+                    $Actualvaneh->setValue(0);
+                    $Actualvaneh->event(0);
+                    $Actualvaneh->setOrder(20);
+                    $Actualvaneh->save();
+                }
+
+
+		$Actualvanev = $this->getCmd(null, 'ActualVaneV');
+                if (!is_object($Actualvanev)) {
+                    $Actualvanev = new melcloudCmd();
+                    $Actualvanev->setName('Actuel Vane Vertical');
+                    $Actualvanev->setEqLogic_id($this->getId());
+                    $Actualvanev->setLogicalId('VaneVerticalDirection');
+                    $Actualvanev->setType('info');
+                    $Actualvanev->setSubType('numeric');
+                    $Actualvanev->setIsHistorized(0);
+                    $Actualvanev->setTemplate('dashboard', 'tile');
+                    $Actualvanev->setIsVisible(0);
+                    $Actualvanev->setValue(0);
+                    $Actualvanev->event(0);
+                    $Actualvanev->setOrder(21);
+                    $Actualvanev->save();
+                }
 
 
                 $ActualFanSpeed = $this->getCmd(null, 'ActualFanSpeed');
@@ -984,7 +1058,21 @@ class melcloudCmd extends cmd
                 melcloud::SetModif($newFanSpeed, $this->getEqLogic(),'SetFanSpeed',8);
             }
         }
-      
+	        		
+        if ('VaneH' == $this->name || 'VaneH' == $this->getLogicalId()) {
+            if (isset($_options['slider'])) {
+                $newVaneHorizontal = $_options['slider'];
+                melcloud::SetModif($newVaneHorizontal, $this->getEqLogic(),'VaneHorizontal',18);
+            }
+        }		
+		
+        if ('VaneV' == $this->name || 'VaneV' == $this->getLogicalId()) {
+            if (isset($_options['slider'])) {
+                $newVaneVertical = $_options['slider'];
+                melcloud::SetModif($newVaneVertical, $this->getEqLogic(),'VaneVertical',19);
+            }
+        }	        
+	    
         if ('ModeAuto' == $this->getLogicalId()) {
         	melcloud::SetModif(8, $this->getEqLogic(),'OperationMode',6);
         }
