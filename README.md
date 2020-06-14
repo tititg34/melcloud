@@ -21,3 +21,12 @@ foreach (object::all() as $object)
 par
 
 foreach (jeeObject::all() as $object)
+
+Béta V1
+
+Ajout  pour la direction des volet Verticale et Horizontal
+Ainsi que les information de retour
+
+Bug connue le chiffre disparer dans la commande de volet 
+
+Futur remplacer les button  Curseur  en liste 
